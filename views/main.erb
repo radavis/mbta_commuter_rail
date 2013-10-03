@@ -11,8 +11,15 @@
   </head>
   <body>
 
-    <div class="panel panel-default">
-    <div class="panel-heading">MBTA Commuter Rails Departures</div>
+    <div class="navbar">
+      <div class="navbar-brand">MBTA Commuter Rails Departures</div>
+
+      <div class="navbar-form navbar-right">
+        <a href="/"><button class="btn btn-default">home</button></a>
+        <a href="/north"><button class="btn btn-default">north station</button></a>
+        <a href="/south"><button class="btn btn-default">south station</button></a>
+      </div>
+    </div>
 
     <table class="table table-striped">
       <tr>
@@ -23,14 +30,19 @@
 
       <% @departures.each do |row| %>
         <tr>
-          <% row.values.each do |item| %>
-            <td><%= item %></td>
+          <% row.each do |key, value| %>
+            <td class="<%= key.downcase %>"><%= value %></td>
           <% end %>
         </tr>
       <% end %>
     <table>
 
+
+    <div class="panel-footer">
+      <div class="msg pull-left">lateness displayed in minutes</div>*
+      <div class="msg pull-right">last updated: <%= @timestamp %></div>
     </div>
+
 
   </body>
 </html>
