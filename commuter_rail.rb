@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 require 'open-uri'
 
 # mbta_commuter_rail_data = {
@@ -42,5 +41,3 @@ CSV.foreach(open(departure_board),
   records << row
 end
 
-
-binding.pry

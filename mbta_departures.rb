@@ -1,9 +1,7 @@
 # mbta_departures.rb
 
 require 'sinatra'
-require 'pry'
 require_relative 'departure_board.rb'
-
 
 # lateness in seconds, convert to minutes
 # statuses:
