@@ -3,11 +3,12 @@
   <head>
     <title>MBTA Departures</title>
     <link rel='stylesheet' type='text/css' href='/css/bootstrap.min.css'/>
+    <link rel='stylesheet' type='text/css' href='/css/bootstrap-theme.min.css'/>
     <link rel='stylesheet' type='text/css' href='/css/stylesheet.css'/>
   </head>
   <body>
 
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top" role="navigation">
       <div class="navbar-brand">MBTA Commuter Rail Departures</div>
 
       <div class="navbar-form navbar-right">
@@ -18,13 +19,28 @@
     </div>
 
     <table class="table table-striped">
-      <tr>
-        <% @departures.first.keys.each do |key| %>
-          <th class="table-header"><%= key %></th>
-        <% end %>
-      </tr>
-
+      <% station = '' %>
       <% @departures.each do |row| %>
+
+        <!-- add another row if the origin station changes -->
+        <% if row["Origin"] != station %>
+          <% station = row["Origin"] %>
+          <td colspan="<%=row.keys.count %>">
+            <h3><span class="label label-default">
+              <%= station %>
+            </span></h3>
+          </td>
+
+          <tr>
+            <% @departures.first.keys.each do |key| %>
+              <% if key != "Origin" %>
+                <th class="table-header"><%= key %></th>
+              <% end %>
+            <% end %>
+          </tr>
+        <% end %>
+        <% row.delete("Origin") %>
+
         <tr class="table-row">
           <% row.each do |key, value| %>
             <td class="<%= key.downcase %>"
@@ -33,16 +49,20 @@
             </td>
           <% end %>
         </tr>
+
       <% end %>
     <table>
 
 
     <div class="panel-footer">
-      <div class="msg pull-left">lateness displayed in minutes</div>*
+      <div class="msg pull-left">lateness displayed in minutes</div>&nbsp;
       <div class="msg pull-right">last updated: <%= @timestamp %></div>
     </div>
 
     <script src="http://code.jquery.com/jquery-latest.min.js"
+            type="text/javascript"></script>
+
+    <script src="/javascripts/bootstrap.min.js"
             type="text/javascript"></script>
 
     <script src="/javascripts/main.js"

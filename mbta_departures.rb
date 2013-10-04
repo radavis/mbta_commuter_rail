@@ -17,15 +17,14 @@ before do
     hash.delete("TimeStamp")
     hash["ScheduledTime"] = hash["ScheduledTime"].strftime("%I:%M%p")
 
-    if hash["Lateness"] = 0
-      hash["Lateness"] = nil
-    elsif hash["Lateness"] > 0
+    if hash["Lateness"] > 0
       hash["Lateness"] /= 60
     end
-
   end
-end
 
+  late_sum = @departures.inject(0) { |sum, hash| sum + hash["Lateness"] }
+  @departures.map { |hash| hash.delete("Lateness") if late_sum == 0 }
+end
 
 get '/' do
   erb :main

@@ -12,6 +12,11 @@ class DepartureBoard
     update
   end
 
+  def to_hash
+    @board
+  end
+
+  private
   def update
     grab_csv if (Time.now - File.mtime(CSV_FILE)).to_i > UPDATE_FREQUENCY
 
@@ -33,10 +38,6 @@ class DepartureBoard
     departures_csv = File.open(CSV_FILE, "w")
     departures_csv.write(remote_data)
     departures_csv.close
-  end
-
-  def to_hash
-    @board
   end
 
 end
