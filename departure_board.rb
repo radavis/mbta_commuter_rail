@@ -35,34 +35,8 @@ class DepartureBoard
     departures_csv.close
   end
 
-  def to_html
-    result = "<table><tr>"
-    @board.first.keys.each do |key|
-      result += "<th>#{key}</th>"
-    end
-    result += "</tr>"
-    @board.each do |row|
-      result += "<tr>"
-
-      row.values.each do |item|
-        #item = item.strftime("%H:%M%p") if item.is_a?(Time)
-        result += "<td>#{item}</td>"
-      end
-
-      result += "</tr>"
-    end
-    result += "<table>"
-  end
-
   def to_hash
     @board
   end
 
-  def all
-    @board
-  end
-
 end
-
-#db = DepartureBoard.new
-#binding.pry
